@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diensten – HVR Show Equipment</title>
+  <meta name="description" content="HVR Show Equipment biedt business events, public events, theaterproducties, verhuur en installatie van professioneel licht, geluid, beeld en podia." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Bebas Neue', 'sans-serif'], sans: ['Poppins', 'sans-serif'] },
+          colors: { dark: '#0A0A0A', surface: '#111111', 'surface-2': '#1A1A1A', gold: '#F59E0B', 'gold-light': '#FCD34D', cyan: '#06B6D4', purple: '#8B5CF6', 'text-muted': '#9CA3AF' },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { background: #000000; color: #FFFFFF; font-family: 'Poppins', sans-serif; }
+    #navbar { transition: background 0.3s, backdrop-filter 0.3s; }
+    #navbar.scrolled { background: rgba(0,0,0,0.85); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(245,158,11,0.15); }
+    .gradient-line { height: 2px; background: linear-gradient(90deg, transparent, #F59E0B, #06B6D4, transparent); }
+    .neon-dot { width:6px;height:6px;background:#F59E0B;border-radius:50%;box-shadow:0 0 10px #F59E0B;display:inline-block; }
+    .glow-gold { text-shadow: 0 0 30px rgba(245,158,11,0.5); }
+    .reveal { opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.visible { opacity:1;transform:none; }
+    .service-section { border-top: 1px solid rgba(255,255,255,0.05); }
+    .service-section:nth-child(even) { background: #0A0A0A; }
+    .btn-gold { background:#F59E0B;color:#000;font-weight:700;padding:14px 32px;transition:all 0.2s;cursor:pointer;display:inline-block; }
+    .btn-gold:hover { background:#FCD34D;box-shadow:0 0 25px rgba(245,158,11,0.5);transform:translateY(-2px); }
+    .btn-outline { border:1px solid rgba(255,255,255,0.3);color:#fff;padding:14px 32px;transition:all 0.2s;cursor:pointer;display:inline-block; }
+    .btn-outline:hover { border-color:#F59E0B;background:rgba(245,158,11,0.08); }
+    #mobile-menu { transition:max-height 0.3s ease,opacity 0.3s ease;max-height:0;opacity:0;overflow:hidden; }
+    #mobile-menu.open { max-height:400px;opacity:1; }
+    .page-hero { min-height: 40vh; background: linear-gradient(to bottom, rgba(0,0,0,0.5), #000), url('images/event-1.jpg') center/cover no-repeat; }
+    .highlight-box { border-left: 3px solid #F59E0B; background: #111111; padding: 20px 24px; }
+  </style>
+</head>
+<body>
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+      <img src="images/logo.png" alt="HVR Show Equipment" class="h-8 md:h-10 w-auto" />
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm font-medium text-white transition-colors duration-200 cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm">Contact</a>
+    </div>
+    <button onclick="toggleMenu()" class="md:hidden text-white p-2 cursor-pointer" aria-label="Menu">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface border-t border-white border-opacity-10">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      <a href="index.html" class="text-sm text-text-muted cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm text-white cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm text-text-muted cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm text-center">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero flex items-end">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 pb-16 pt-32">
+    <div class="flex items-center gap-3 mb-3">
+      <span class="neon-dot"></span>
+      <span class="text-gold text-xs font-semibold tracking-widest uppercase">Wat wij doen</span>
+    </div>
+    <h1 class="font-display text-white glow-gold" style="font-size: clamp(3rem, 7vw, 6rem);">ONZE DIENSTEN</h1>
+    <div class="gradient-line w-24 mt-4"></div>
+  </div>
+</div>
+
+<!-- BUSINESS EVENTS -->
+<section id="business-events" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5" />
+        </svg>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Dienst 01</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);">BUSINESS EVENTS</h2>
+      <p class="text-text-muted leading-relaxed mb-6">De specialiteit van HVR is toch zeker wel de business events! Wij onderscheiden ons met goed onderhouden materialen, strakke afwerking en flexibiliteit.</p>
+      <div class="highlight-box mb-6">
+        <p class="text-white text-sm italic">"Wij verzorgen de volledige technische uitvoering voor uw bedrijfsevenement — van een intiem directieoverleg tot een groot incentive event voor honderden gasten."</p>
+      </div>
+      <p class="text-text-muted text-sm leading-relaxed mb-6">Klanten als Eventbureau.nl, PPeople, Dutch Event House, D&B Eventmarketing en Inspyrium vertrouwen al jaren op de expertise van HVR.</p>
+      <a href="contact.html" class="btn-gold text-sm tracking-wider uppercase">Offerte Aanvragen</a>
+    </div>
+    <div class="reveal">
+      <img src="images/event-2.jpg" alt="Business event HVR" loading="lazy" class="w-full h-96 object-cover rounded" />
+    </div>
+  </div>
+</section>
+
+<!-- PUBLIC EVENTS -->
+<section id="public-events" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal order-2 lg:order-1">
+      <img src="images/event-3.jpg" alt="Public event HVR" loading="lazy" class="w-full h-96 object-cover rounded" />
+    </div>
+    <div class="reveal order-1 lg:order-2">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-7 h-7 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197" />
+        </svg>
+        <span class="text-cyan text-xs font-semibold tracking-widest uppercase">Dienst 02</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);">PUBLIC EVENTS</h2>
+      <p class="text-text-muted leading-relaxed mb-6">HVR is zeer ervaren in het technisch uitvoeren van alle soorten events binnen en buiten. Wij kunnen u helpen in de voorbereiding en adviseren hoe we het beste resultaat kunnen bereiken.</p>
+      <p class="text-text-muted text-sm leading-relaxed mb-6">Of het nu gaat om een openlucht festival, een stadsfeest of een grote publieksevenement — HVR heeft de middelen en de ervaring om de techniek perfect te laten verlopen.</p>
+      <a href="contact.html" class="btn-outline text-sm tracking-wider uppercase">Meer Informatie</a>
+    </div>
+  </div>
+</section>
+
+<!-- THEATERPRODUCTIES -->
+<section id="theater" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-7 h-7 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+        </svg>
+        <span class="text-purple text-xs font-semibold tracking-widest uppercase">Dienst 03</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);">THEATERPRODUCTIES</h2>
+      <p class="text-text-muted leading-relaxed mb-6">Of u nu een eenmalige voorstelling geeft of een tour maakt langs diverse theaters, HVR is uw partner voor alle technische zaken.</p>
+      <p class="text-text-muted text-sm leading-relaxed mb-6">Indien gewenst maken wij in overleg met de regisseur of choreograaf het totale licht en geluidsontwerp. Onze grote voorraad professionele apparatuur zorgt ervoor dat wij aan al uw theatrale wensen kunnen voldoen.</p>
+      <p class="text-text-muted text-sm leading-relaxed mb-8">Wij bieden technische expertise voor alle aspecten van een voorstelling. Onze kundige teams van video-, licht- en geluidstechnici maken van elke show een onvergetelijke belevenis voor het publiek.</p>
+      <a href="contact.html" class="btn-gold text-sm tracking-wider uppercase">Plan een Gesprek</a>
+    </div>
+    <div class="reveal">
+      <img src="images/theater-1.jpg" alt="Theaterproductie HVR" loading="lazy" class="w-full h-96 object-cover rounded" />
+    </div>
+  </div>
+</section>
+
+<!-- ARTIESTEN & BANDS -->
+<section id="artiesten" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal order-2 lg:order-1">
+      <img src="images/event-4.jpg" alt="Artiesten en bands HVR" loading="lazy" class="w-full h-96 object-cover rounded" />
+    </div>
+    <div class="reveal order-1 lg:order-2">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-7 h-7 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+        </svg>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Dienst 04</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);">ARTIESTEN & BANDS</h2>
+      <p class="text-text-muted leading-relaxed mb-6">HVR biedt stabiele technische ondersteuning voor vaste producties zoals tape-shows, bands en voorstellingen.</p>
+      <p class="text-text-muted text-sm leading-relaxed mb-8">Betrouwbaarheid is hier het sleutelwoord. Of het nu gaat om een vaste toerproductie of een eenmalig optreden — HVR zorgt voor consistente, professionele techniek elke keer opnieuw.</p>
+      <a href="contact.html" class="btn-outline text-sm tracking-wider uppercase">Contact Opnemen</a>
+    </div>
+  </div>
+</section>
+
+<!-- VERHUUR -->
+<section id="verhuur" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12 reveal">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="neon-dot"></span>
+        <span class="text-cyan text-xs font-semibold tracking-widest uppercase">Dienst 05</span>
+      </div>
+      <h2 class="font-display text-white mb-4" style="font-size:clamp(2rem,4vw,3.5rem);">VERHUUR</h2>
+      <p class="text-text-muted max-w-2xl mx-auto leading-relaxed">HVR Show Equipment verhuurt geluid, licht, beeld en podia door heel Nederland. Van klein optreden tot mega-event. Door het grote aanbod aan middelen en dankzij de jarenlange ervaring, kan de klant rekenen op een betrouwbare partner waarbij de klant compleet ontzorgd wordt.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-surface border border-white border-opacity-5 p-6 text-center reveal hover:border-gold hover:border-opacity-40 transition-all duration-300">
+        <div class="text-4xl mb-4">🔊</div>
+        <h3 class="font-display text-white text-xl mb-2">GELUID</h3>
+        <p class="text-text-muted text-xs leading-relaxed">Professionele geluidsapparatuur van A-merken</p>
+      </div>
+      <div class="bg-surface border border-white border-opacity-5 p-6 text-center reveal hover:border-cyan hover:border-opacity-40 transition-all duration-300" style="transition-delay:0.1s">
+        <div class="text-4xl mb-4">💡</div>
+        <h3 class="font-display text-white text-xl mb-2">LICHT</h3>
+        <p class="text-text-muted text-xs leading-relaxed">Verlichting voor elk type event en locatie</p>
+      </div>
+      <div class="bg-surface border border-white border-opacity-5 p-6 text-center reveal hover:border-purple hover:border-opacity-40 transition-all duration-300" style="transition-delay:0.2s">
+        <div class="text-4xl mb-4">📺</div>
+        <h3 class="font-display text-white text-xl mb-2">BEELD</h3>
+        <p class="text-text-muted text-xs leading-relaxed">Schermen, LED-walls en projectiesystemen</p>
+      </div>
+      <div class="bg-surface border border-white border-opacity-5 p-6 text-center reveal hover:border-gold hover:border-opacity-40 transition-all duration-300" style="transition-delay:0.3s">
+        <div class="text-4xl mb-4">🏗️</div>
+        <h3 class="font-display text-white text-xl mb-2">PODIA</h3>
+        <p class="text-text-muted text-xs leading-relaxed">Modulaire podia voor elk formaat evenement</p>
+      </div>
+    </div>
+    <div class="text-center mt-10 reveal">
+      <a href="contact.html" class="btn-gold text-sm tracking-wider uppercase">Verhuur Aanvragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- VERKOOP & INSTALLATIE -->
+<section id="installatie" class="service-section py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <svg class="w-7 h-7 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+        </svg>
+        <span class="text-purple text-xs font-semibold tracking-widest uppercase">Dienst 06</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);">VERKOOP & INSTALLATIE</h2>
+      <p class="text-text-muted leading-relaxed mb-6">Wij kunnen met een passend advies de installatie verzorgen die u voor ogen heeft en gaan daarbij geen uitdaging uit de weg!</p>
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Restaurants</div>
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Kroegen</div>
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Thuisbioscopen</div>
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Discotheken</div>
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Theaters</div>
+        <div class="bg-surface border border-white border-opacity-5 p-3 text-sm text-text-muted">Scholen</div>
+      </div>
+      <p class="text-text-muted text-sm leading-relaxed mb-8">Een vaste installatie moet jarenlang meegaan en daarom kiezen we bij HVR voor betrouwbare producten. Wij helpen u ook vooruit met het onderhoud of eventuele reparatie van de apparatuur.</p>
+      <a href="contact.html" class="btn-gold text-sm tracking-wider uppercase">Installatie Aanvragen</a>
+    </div>
+    <div class="reveal">
+      <img src="images/ref-1.jpg" alt="Installatie HVR" loading="lazy" class="w-full h-96 object-cover rounded" />
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-surface border-t border-white border-opacity-5 py-12 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="gradient-line mb-8"></div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-text-muted text-xs">
+      <span>© 2025 HVR Show Equipment B.V. · KVK: 16060198 · De Hammen 2, 5371 MK Ravenstein</span>
+      <span>Gebouwd door <a href="https://www.code-lieshout.nl" class="text-gold hover:text-gold-light transition-colors duration-200 cursor-pointer">Code Lieshout</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('icon-open').classList.toggle('hidden');
+    document.getElementById('icon-close').classList.toggle('hidden');
+  }
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

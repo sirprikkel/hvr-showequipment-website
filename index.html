@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HVR Show Equipment – Licht, Geluid, Beeld & Podia</title>
+  <meta name="description" content="HVR Show Equipment B.V. — uw professionele partner voor licht, geluid, beeld en podia. Business events, theaterproducties, artiesten en meer. Ravenstein, heel Nederland." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Bebas Neue', 'sans-serif'],
+            sans: ['Poppins', 'sans-serif'],
+          },
+          colors: {
+            black: '#000000',
+            dark: '#0A0A0A',
+            surface: '#111111',
+            'surface-2': '#1A1A1A',
+            gold: '#F59E0B',
+            'gold-light': '#FCD34D',
+            cyan: '#06B6D4',
+            purple: '#8B5CF6',
+            'text-muted': '#9CA3AF',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease forwards',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+            'slide-right': 'slideRight 0.6s ease forwards',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(40px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glowPulse: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(245,158,11,0.3)' },
+              '50%': { boxShadow: '0 0 40px rgba(245,158,11,0.7)' },
+            },
+            slideRight: {
+              '0%': { opacity: '0', transform: 'translateX(-30px)' },
+              '100%': { opacity: '1', transform: 'translateX(0)' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { background: #000000; color: #FFFFFF; font-family: 'Poppins', sans-serif; }
+
+    /* NAV */
+    #navbar { transition: background 0.3s ease, backdrop-filter 0.3s ease; }
+    #navbar.scrolled {
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(245,158,11,0.15);
+    }
+
+    /* HERO */
+    .hero-bg {
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.6) 50%, #000000 100%),
+        url('images/hero-1.jpg') center center / cover no-repeat;
+      min-height: 100vh;
+    }
+
+    /* GLOW ACCENTS */
+    .glow-gold { text-shadow: 0 0 30px rgba(245,158,11,0.6), 0 0 60px rgba(245,158,11,0.3); }
+    .glow-cyan { text-shadow: 0 0 20px rgba(6,182,212,0.5); }
+    .border-glow { box-shadow: 0 0 20px rgba(245,158,11,0.25); }
+
+    /* GRADIENT LINE */
+    .gradient-line {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #F59E0B, #06B6D4, transparent);
+    }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+    /* SERVICE CARD */
+    .service-card {
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .service-card:hover {
+      border-color: rgba(245,158,11,0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(245,158,11,0.12);
+    }
+
+    /* STATS */
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      color: #F59E0B;
+      text-shadow: 0 0 20px rgba(245,158,11,0.4);
+      line-height: 1;
+    }
+
+    /* GALLERY GRID */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gallery-item { overflow: hidden; cursor: pointer; }
+    .gallery-item img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s ease;
+      filter: brightness(0.75) saturate(0.8);
+    }
+    .gallery-item:hover img { transform: scale(1.05); filter: brightness(1) saturate(1.2); }
+
+    /* CTA */
+    .btn-gold {
+      background: #F59E0B;
+      color: #000000;
+      font-weight: 700;
+      padding: 14px 32px;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .btn-gold:hover {
+      background: #FCD34D;
+      box-shadow: 0 0 25px rgba(245,158,11,0.5);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #FFFFFF;
+      padding: 14px 32px;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: pointer;
+    }
+    .btn-outline:hover { border-color: #F59E0B; background: rgba(245,158,11,0.08); }
+
+    /* REVIEW CARD */
+    .review-card {
+      background: #111111;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid #F59E0B;
+    }
+
+    /* MOBILE MENU */
+    #mobile-menu { transition: max-height 0.3s ease, opacity 0.3s ease; max-height: 0; opacity: 0; overflow: hidden; }
+    #mobile-menu.open { max-height: 400px; opacity: 1; }
+
+    /* LIGHTBOX */
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center; cursor: pointer; }
+    #lightbox.open { display: flex; }
+    #lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+
+    /* SCAN LINE decoration on hero */
+    .scanlines::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none;
+    }
+
+    /* BRAND LOGOS */
+    .brand-logo { filter: brightness(0) invert(0.5); transition: filter 0.3s; }
+    .brand-logo:hover { filter: brightness(0) invert(0.9); }
+
+    /* NEON DIVIDER */
+    .neon-dot {
+      width: 6px; height: 6px;
+      background: #F59E0B;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #F59E0B;
+      display: inline-block;
+    }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item img { height: 180px; }
+    }
+    @media (max-width: 480px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img" src="" alt="Referentie foto" />
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+      <img src="images/logo.png" alt="HVR Show Equipment" class="h-8 md:h-10 w-auto" />
+    </a>
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="text-sm font-medium text-white hover:text-gold-light transition-colors duration-200 cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm inline-block">Contact</a>
+    </div>
+    <!-- Mobile hamburger -->
+    <button onclick="toggleMenu()" class="md:hidden text-white p-2 cursor-pointer" aria-label="Menu openen">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden bg-surface border-t border-white border-opacity-10">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      <a href="index.html" class="text-sm font-medium text-white cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm font-medium text-text-muted hover:text-white cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm font-medium text-text-muted hover:text-white cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm text-center inline-block">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-bg relative scanlines flex items-center">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-8 lg:px-16 pt-32 pb-20 md:pt-40 md:pb-32">
+    <!-- Tag line -->
+    <div class="flex items-center gap-3 mb-6">
+      <span class="neon-dot"></span>
+      <span class="text-gold text-xs md:text-sm font-semibold tracking-widest uppercase">Show Equipment Specialist</span>
+    </div>
+    <!-- Main headline -->
+    <h1 class="font-display text-white leading-none mb-6" style="font-size: clamp(3.5rem, 9vw, 9rem); line-height: 0.95;">
+      MAAK VAN<br/>
+      <span class="glow-gold" style="color: #F59E0B;">ELKE SHOW</span><br/>
+      EEN BELEVENIS
+    </h1>
+    <p class="text-text-muted text-base md:text-lg max-w-xl mb-10 leading-relaxed">
+      HVR Show Equipment levert professioneel licht, geluid, beeld en podia voor events door heel Nederland. Van intiem theaterstuk tot megaevent.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="contact.html" class="btn-gold inline-block text-center text-sm tracking-wider uppercase">Vrijblijvend Offerte</a>
+      <a href="referenties.html" class="btn-outline inline-block text-center text-sm tracking-wider uppercase">Onze Referenties</a>
+    </div>
+    <!-- Rating badge -->
+    <div class="mt-12 flex items-center gap-3">
+      <div class="flex gap-1">
+        <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+      </div>
+      <span class="text-sm text-white font-semibold">4.9</span>
+      <span class="text-text-muted text-sm">op Google · 26 reviews</span>
+    </div>
+  </div>
+  <!-- Gradient bottom fade -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent"></div>
+</section>
+
+<!-- STATS BALK -->
+<section class="bg-surface-2 border-y border-white border-opacity-5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 py-12">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal">
+        <div class="stat-number">25+</div>
+        <div class="text-text-muted text-sm mt-1 tracking-wide">Jaar Ervaring</div>
+      </div>
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="stat-number">A-Merk</div>
+        <div class="text-text-muted text-sm mt-1 tracking-wide">Apparatuur</div>
+      </div>
+      <div class="reveal" style="transition-delay:0.2s">
+        <div class="stat-number">NL</div>
+        <div class="text-text-muted text-sm mt-1 tracking-wide">Heel Nederland</div>
+      </div>
+      <div class="reveal" style="transition-delay:0.3s">
+        <div class="stat-number">4.9</div>
+        <div class="text-text-muted text-sm mt-1 tracking-wide">Google Rating</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIENSTEN -->
+<section class="py-24 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-16 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="neon-dot"></span>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Wat wij doen</span>
+      </div>
+      <h2 class="font-display text-white" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">ONZE DIENSTEN</h2>
+      <div class="gradient-line w-32 mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Business Events -->
+      <div class="service-card p-8 reveal">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">BUSINESS EVENTS</h3>
+        <p class="text-text-muted text-sm leading-relaxed">De specialiteit van HVR. Goed onderhouden materialen, strakke afwerking en flexibiliteit — voor bedrijfsevenementen op elk niveau.</p>
+        <a href="diensten.html#business-events" class="mt-5 inline-flex items-center gap-2 text-gold text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Public Events -->
+      <div class="service-card p-8 reveal" style="transition-delay:0.1s">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">PUBLIC EVENTS</h3>
+        <p class="text-text-muted text-sm leading-relaxed">HVR is zeer ervaren in het technisch uitvoeren van alle soorten events binnen en buiten. Van voorbereiding tot uitvoering.</p>
+        <a href="diensten.html#public-events" class="mt-5 inline-flex items-center gap-2 text-cyan text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Theaterproducties -->
+      <div class="service-card p-8 reveal" style="transition-delay:0.2s">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">THEATERPRODUCTIES</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Van eenmalige voorstelling tot theatertour. HVR verzorgt het totale licht- en geluidsontwerp in overleg met regisseur of choreograaf.</p>
+        <a href="diensten.html#theater" class="mt-5 inline-flex items-center gap-2 text-purple text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Artiesten & Bands -->
+      <div class="service-card p-8 reveal" style="transition-delay:0.1s">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66A2.25 2.25 0 009 15.553z" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">ARTIESTEN & BANDS</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Stabiele technische ondersteuning voor vaste producties zoals tape-shows, bandoptredens en voorstellingen. Betrouwbaar elke keer.</p>
+        <a href="diensten.html#artiesten" class="mt-5 inline-flex items-center gap-2 text-gold text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Verhuur -->
+      <div class="service-card p-8 reveal" style="transition-delay:0.2s">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">VERHUUR</h3>
+        <p class="text-text-muted text-sm leading-relaxed">HVR heeft uitsluitend A-merken op het gebied van licht, geluid, podia en beeldapparatuur. Van klein optreden tot mega-event door heel Nederland.</p>
+        <a href="diensten.html#verhuur" class="mt-5 inline-flex items-center gap-2 text-cyan text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+      <!-- Verkoop & Installatie -->
+      <div class="service-card p-8 reveal" style="transition-delay:0.3s">
+        <div class="mb-5">
+          <svg class="w-8 h-8 text-purple" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+          </svg>
+        </div>
+        <h3 class="font-display text-white text-2xl mb-3">VERKOOP & INSTALLATIE</h3>
+        <p class="text-text-muted text-sm leading-relaxed">Vaste installaties voor restaurants, kroegen, discotheken, theaters en scholen. Met betrouwbare producten en service ook voor onderhoud en reparatie.</p>
+        <a href="diensten.html#installatie" class="mt-5 inline-flex items-center gap-2 text-purple text-sm font-medium cursor-pointer hover:gap-3 transition-all duration-200">
+          Meer info
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GRADIENT DIVIDER -->
+<div class="gradient-line mx-4 md:mx-8 lg:mx-16 max-w-7xl mx-auto"></div>
+
+<!-- OVER HVR (storytelling sectie) -->
+<section class="py-24 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <div class="reveal-left">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="neon-dot"></span>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Over HVR</span>
+      </div>
+      <h2 class="font-display text-white mb-6" style="font-size: clamp(2.5rem, 4vw, 4rem);">UW PARTNER IN TECHNIEK</h2>
+      <p class="text-text-muted leading-relaxed mb-6">
+        HVR Show Equipment verhuurt geluid, licht, beeld en podia door heel Nederland. Van klein optreden tot mega-event. Door het grote aanbod aan middelen en dankzij de jarenlange ervaring, kan de klant rekenen op een betrouwbare partner waarbij de klant compleet ontzorgd wordt.
+      </p>
+      <p class="text-text-muted leading-relaxed mb-8">
+        Wij onderscheiden ons met goed onderhouden materialen, strakke afwerking en flexibiliteit. Onze kundige teams van video-, licht- en geluidstechnici maken van elke show een onvergetelijke belevenis voor het publiek.
+      </p>
+      <div class="flex flex-wrap gap-3 mb-8">
+        <span class="px-3 py-1 bg-surface border border-gold border-opacity-30 text-gold text-xs font-medium tracking-wide">A-Merken</span>
+        <span class="px-3 py-1 bg-surface border border-white border-opacity-10 text-white text-xs font-medium tracking-wide">Heel Nederland</span>
+        <span class="px-3 py-1 bg-surface border border-white border-opacity-10 text-white text-xs font-medium tracking-wide">Compleet Ontzorgd</span>
+        <span class="px-3 py-1 bg-surface border border-white border-opacity-10 text-white text-xs font-medium tracking-wide">Goed Onderhouden</span>
+      </div>
+      <a href="contact.html" class="btn-gold inline-block text-sm tracking-wider uppercase">Neem Contact Op</a>
+    </div>
+    <div class="reveal grid grid-cols-2 gap-4">
+      <img src="images/event-1.jpg" alt="HVR business event" loading="lazy" class="rounded w-full h-56 object-cover" />
+      <img src="images/event-2.jpg" alt="HVR event productie" loading="lazy" class="rounded w-full h-56 object-cover mt-8" />
+      <img src="images/event-3.jpg" alt="HVR show equipment" loading="lazy" class="rounded w-full h-56 object-cover" />
+      <img src="images/theater-1.jpg" alt="HVR theater" loading="lazy" class="rounded w-full h-56 object-cover mt-8" />
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="py-24 px-4 md:px-8 lg:px-16 bg-surface-2">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-12 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="neon-dot"></span>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Portfolio</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <h2 class="font-display text-white" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">RECENTE PROJECTEN</h2>
+        <a href="referenties.html" class="btn-outline text-sm tracking-wider uppercase inline-block text-center">Alle Referenties</a>
+      </div>
+      <div class="gradient-line w-32 mt-4"></div>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item" onclick="openLightbox('images/event-1.jpg')">
+        <img src="images/event-1.jpg" alt="Business event" loading="lazy" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/event-2.jpg')">
+        <img src="images/event-2.jpg" alt="Public event" loading="lazy" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/event-3.jpg')">
+        <img src="images/event-3.jpg" alt="Show equipment" loading="lazy" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/ref-1.jpg')">
+        <img src="images/ref-1.jpg" alt="Referentie 1" loading="lazy" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/ref-2.jpg')">
+        <img src="images/ref-2.jpg" alt="Referentie 2" loading="lazy" />
+      </div>
+      <div class="gallery-item" onclick="openLightbox('images/theater-1.jpg')">
+        <img src="images/theater-1.jpg" alt="Theaterproductie" loading="lazy" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="py-24 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-12 reveal text-center">
+      <div class="flex items-center justify-center gap-3 mb-4">
+        <span class="neon-dot"></span>
+        <span class="text-gold text-xs font-semibold tracking-widest uppercase">Klanten over ons</span>
+      </div>
+      <h2 class="font-display text-white" style="font-size: clamp(2.5rem, 5vw, 4.5rem);">
+        ⭐ 4.9 OP GOOGLE
+      </h2>
+      <p class="text-text-muted mt-3">26 klanten gingen u voor</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="review-card p-6 reveal">
+        <div class="flex gap-1 mb-3">
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-white text-sm leading-relaxed mb-4">"Professioneel bedrijf met jarenlange ervaring. Alles goed geregeld."</p>
+        <div class="text-text-muted text-xs font-semibold">Gert Blummel</div>
+      </div>
+      <div class="review-card p-6 reveal" style="transition-delay:0.1s">
+        <div class="flex gap-1 mb-3">
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-white text-sm leading-relaxed mb-4">"Goede service. Zaken goed op orde. Aardige en professionele mensen."</p>
+        <div class="text-text-muted text-xs font-semibold">Toin Lier</div>
+      </div>
+      <div class="review-card p-6 reveal" style="transition-delay:0.2s">
+        <div class="flex gap-1 mb-3">
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg class="w-4 h-4 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <p class="text-white text-sm leading-relaxed mb-4">"Goede service, leuke werknemers. Aardige mensen met goede service."</p>
+        <div class="text-text-muted text-xs font-semibold">Roel van Elferen</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTIE -->
+<section class="py-24 px-4 md:px-8 lg:px-16 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-br from-gold from-opacity-5 via-black to-black opacity-50"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold to-transparent opacity-20"></div>
+  <div class="max-w-4xl mx-auto text-center relative z-10 reveal">
+    <div class="flex items-center justify-center gap-3 mb-6">
+      <span class="neon-dot"></span>
+      <span class="text-gold text-xs font-semibold tracking-widest uppercase">Klaar voor uw event?</span>
+      <span class="neon-dot"></span>
+    </div>
+    <h2 class="font-display text-white glow-gold mb-6" style="font-size: clamp(2.5rem, 6vw, 5rem); line-height: 0.95;">
+      LATEN WE UW SHOW ONVERGETELIJK MAKEN
+    </h2>
+    <p class="text-text-muted text-lg mb-10 leading-relaxed">
+      Neem contact op voor een vrijblijvend gesprek. Onze technici denken graag mee over de beste aanpak voor uw evenement.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="contact.html" class="btn-gold inline-block text-center text-sm tracking-wider uppercase">Vraag een Offerte Aan</a>
+      <a href="tel:0486412777" class="btn-outline inline-block text-center text-sm tracking-wider uppercase">0486 412 777</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-surface border-t border-white border-opacity-5 py-16 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="md:col-span-2">
+        <img src="images/logo.png" alt="HVR Show Equipment" class="h-10 w-auto mb-4" />
+        <p class="text-text-muted text-sm leading-relaxed max-w-sm">
+          HVR Show Equipment B.V. — uw professionele partner voor licht, geluid, beeld en podia. Door heel Nederland.
+        </p>
+        <div class="mt-4 flex items-center gap-2">
+          <div class="flex gap-1">
+            <svg class="w-3 h-3 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-3 h-3 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-3 h-3 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-3 h-3 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg class="w-3 h-3 text-gold fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <span class="text-gold text-xs font-semibold">4.9 op Google</span>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-display text-white text-lg mb-4">DIENSTEN</h4>
+        <ul class="space-y-2 text-sm text-text-muted">
+          <li><a href="diensten.html#business-events" class="hover:text-white transition-colors duration-200 cursor-pointer">Business Events</a></li>
+          <li><a href="diensten.html#public-events" class="hover:text-white transition-colors duration-200 cursor-pointer">Public Events</a></li>
+          <li><a href="diensten.html#theater" class="hover:text-white transition-colors duration-200 cursor-pointer">Theaterproducties</a></li>
+          <li><a href="diensten.html#artiesten" class="hover:text-white transition-colors duration-200 cursor-pointer">Artiesten & Bands</a></li>
+          <li><a href="diensten.html#verhuur" class="hover:text-white transition-colors duration-200 cursor-pointer">Verhuur</a></li>
+          <li><a href="diensten.html#installatie" class="hover:text-white transition-colors duration-200 cursor-pointer">Verkoop & Installatie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-display text-white text-lg mb-4">CONTACT</h4>
+        <ul class="space-y-3 text-sm text-text-muted">
+          <li class="flex gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            De Hammen 2, 5371 MK Ravenstein
+          </li>
+          <li class="flex gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <a href="tel:0486412777" class="hover:text-white transition-colors duration-200 cursor-pointer">0486 412 777</a>
+          </li>
+          <li class="flex gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <a href="mailto:info@hvr.cc" class="hover:text-white transition-colors duration-200 cursor-pointer">info@hvr.cc</a>
+          </li>
+          <li class="flex gap-2">
+            <svg class="w-4 h-4 text-gold flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Ma–Vr 08:30–17:30
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="gradient-line"></div>
+    <div class="mt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-text-muted text-xs">
+      <span>© 2025 HVR Show Equipment B.V. · KVK: 16060198</span>
+      <span>Gebouwd door <a href="https://www.code-lieshout.nl" class="text-gold hover:text-gold-light transition-colors duration-200 cursor-pointer">Code Lieshout</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+    menu.classList.toggle('open');
+    iconOpen.classList.toggle('hidden');
+    iconClose.classList.toggle('hidden');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => observer.observe(el));
+
+  // Lightbox
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  // Prefers reduced motion
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
+</script>
+</body>
+</html>

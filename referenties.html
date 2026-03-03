@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="nl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Referenties – HVR Show Equipment</title>
+  <meta name="description" content="Bekijk de referenties en projecten van HVR Show Equipment. Business events, theaterproducties, artiesten en meer." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { display: ['Bebas Neue', 'sans-serif'], sans: ['Poppins', 'sans-serif'] },
+          colors: { dark: '#0A0A0A', surface: '#111111', 'surface-2': '#1A1A1A', gold: '#F59E0B', 'gold-light': '#FCD34D', cyan: '#06B6D4', purple: '#8B5CF6', 'text-muted': '#9CA3AF' },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { background:#000;color:#fff;font-family:'Poppins',sans-serif; }
+    #navbar { transition:background 0.3s,backdrop-filter 0.3s; }
+    #navbar.scrolled { background:rgba(0,0,0,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,158,11,0.15); }
+    .gradient-line { height:2px;background:linear-gradient(90deg,transparent,#F59E0B,#06B6D4,transparent); }
+    .neon-dot { width:6px;height:6px;background:#F59E0B;border-radius:50%;box-shadow:0 0 10px #F59E0B;display:inline-block; }
+    .glow-gold { text-shadow:0 0 30px rgba(245,158,11,0.5); }
+    .reveal { opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.visible { opacity:1;transform:none; }
+    .btn-gold { background:#F59E0B;color:#000;font-weight:700;padding:14px 32px;transition:all 0.2s;cursor:pointer;display:inline-block; }
+    .btn-gold:hover { background:#FCD34D;box-shadow:0 0 25px rgba(245,158,11,0.5);transform:translateY(-2px); }
+    #mobile-menu { transition:max-height 0.3s ease,opacity 0.3s ease;max-height:0;opacity:0;overflow:hidden; }
+    #mobile-menu.open { max-height:400px;opacity:1; }
+    .page-hero { min-height:40vh;background:linear-gradient(to bottom,rgba(0,0,0,0.4),#000),url('images/event-3.jpg') center/cover no-repeat; }
+    .ref-card { background:#111111;border:1px solid rgba(255,255,255,0.06);overflow:hidden;transition:border-color 0.3s,box-shadow 0.3s; }
+    .ref-card:hover { border-color:rgba(245,158,11,0.4);box-shadow:0 8px 30px rgba(245,158,11,0.08); }
+    .ref-card img { width:100%;height:220px;object-fit:cover;transition:transform 0.5s ease,filter 0.3s; filter:brightness(0.75)saturate(0.8); }
+    .ref-card:hover img { transform:scale(1.04);filter:brightness(0.95)saturate(1.1); }
+    #lightbox { display:none;position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;align-items:center;justify-content:center;cursor:pointer; }
+    #lightbox.open { display:flex; }
+    #lightbox img { max-width:90vw;max-height:90vh;object-fit:contain; }
+    .filter-btn { border:1px solid rgba(255,255,255,0.15);color:#9CA3AF;padding:8px 18px;font-size:0.75rem;cursor:pointer;transition:all 0.2s;letter-spacing:0.05em; }
+    .filter-btn.active, .filter-btn:hover { border-color:#F59E0B;color:#F59E0B;background:rgba(245,158,11,0.08); }
+  </style>
+</head>
+<body>
+<div id="lightbox" onclick="closeLightbox()"><img id="lb-img" src="" alt="" /></div>
+
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto flex items-center justify-between h-16 md:h-20">
+    <a href="index.html" class="flex items-center gap-3 cursor-pointer">
+      <img src="images/logo.png" alt="HVR" class="h-8 md:h-10 w-auto" />
+    </a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="index.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm font-medium text-text-muted hover:text-white transition-colors duration-200 cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm font-medium text-white cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm">Contact</a>
+    </div>
+    <button onclick="toggleMenu()" class="md:hidden text-white p-2 cursor-pointer" aria-label="Menu">
+      <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path id="icon-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path id="icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+  <div id="mobile-menu" class="md:hidden bg-surface border-t border-white border-opacity-10">
+    <div class="px-4 py-4 flex flex-col gap-4">
+      <a href="index.html" class="text-sm text-text-muted cursor-pointer">Home</a>
+      <a href="diensten.html" class="text-sm text-text-muted cursor-pointer">Diensten</a>
+      <a href="referenties.html" class="text-sm text-white cursor-pointer">Referenties</a>
+      <a href="contact.html" class="btn-gold text-sm text-center">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero flex items-end">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 lg:px-16 pb-16 pt-32">
+    <div class="flex items-center gap-3 mb-3"><span class="neon-dot"></span><span class="text-gold text-xs font-semibold tracking-widest uppercase">Onze projecten</span></div>
+    <h1 class="font-display text-white glow-gold" style="font-size:clamp(3rem,7vw,6rem);">REFERENTIES</h1>
+    <div class="gradient-line w-24 mt-4"></div>
+  </div>
+</div>
+
+<section class="py-20 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Intro -->
+    <div class="mb-12 reveal">
+      <p class="text-text-muted leading-relaxed max-w-3xl">Een greep uit de projecten die HVR Show Equipment de afgelopen jaren heeft uitgevoerd. Van grootschalige corporate events tot intieme theaterproducties — wij zetten de techniek voor u neer.</p>
+    </div>
+
+    <!-- Category labels -->
+    <div class="mb-10 reveal">
+      <div class="flex flex-wrap gap-3">
+        <span class="px-3 py-1 bg-surface border border-gold border-opacity-40 text-gold text-xs font-semibold tracking-wide">Business Events</span>
+        <span class="px-3 py-1 bg-surface border border-cyan border-opacity-40 text-cyan text-xs font-semibold tracking-wide">Public Events</span>
+        <span class="px-3 py-1 bg-surface border border-purple border-opacity-40 text-purple text-xs font-semibold tracking-wide">Theaterproducties</span>
+      </div>
+    </div>
+
+    <!-- BUSINESS EVENTS -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8 reveal">
+        <span class="neon-dot"></span>
+        <h2 class="font-display text-gold text-2xl tracking-wide">BUSINESS EVENTS</h2>
+        <div class="flex-1 h-px bg-gold bg-opacity-20"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="ref-card reveal" onclick="openLightbox('images/event-1.jpg')">
+          <img src="images/event-1.jpg" alt="Inspire event" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">02 OKT 2025</div>
+            <h3 class="font-display text-white text-xl mb-2">INSPIRE</h3>
+            <p class="text-text-muted text-xs leading-relaxed">Op 02-10-2025 verzorgde HVR de techniek voor "Inspire" in opdracht van Eventbureau.nl B.V.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Eventbureau.nl</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.1s" onclick="openLightbox('images/event-2.jpg')">
+          <img src="images/event-2.jpg" alt="Jaga event" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">30 JAN</div>
+            <h3 class="font-display text-white text-xl mb-2">JAGA</h3>
+            <p class="text-text-muted text-xs leading-relaxed">Op 30-01 verzorgde HVR de techniek voor Jaga in opdracht van PPeople.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">PPeople</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.2s" onclick="openLightbox('images/ref-1.jpg')">
+          <img src="images/ref-1.jpg" alt="Movares event" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">07 NOV 2024</div>
+            <h3 class="font-display text-white text-xl mb-2">MOVARES</h3>
+            <p class="text-text-muted text-xs leading-relaxed">Op 07-11-2024 verzorgde HVR in opdracht van Eventbureau.nl de complete techniek voor Movares in Lief Amsterdam.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Eventbureau.nl</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" onclick="openLightbox('images/ref-2.jpg')">
+          <img src="images/ref-2.jpg" alt="Evenement Kramp" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">FEB / MRT</div>
+            <h3 class="font-display text-white text-xl mb-2">EVENEMENT KRAMP</h3>
+            <p class="text-text-muted text-xs leading-relaxed">Op 07-08-09 februari verzorgde HVR Show Equipment het evenement "Kramp" in opdracht van Inspyrium.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Inspyrium</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.1s" onclick="openLightbox('images/ref-3.jpg')">
+          <img src="images/ref-3.jpg" alt="Axians Connecting House" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">31 OKT</div>
+            <h3 class="font-display text-white text-xl mb-2">AXIANS CONNECTING HOUSE</h3>
+            <p class="text-text-muted text-xs leading-relaxed">HVR verzorgde de techniek voor Axians-Connecting Talent i.o.v. Dutch Event House. Locatie: Werkspoor Kathedraal Utrecht.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Dutch Event House</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.2s" onclick="openLightbox('images/ref-4.jpg')">
+          <img src="images/ref-4.jpg" alt="World of Incentro" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">WORLD OF INCENTRO</div>
+            <h3 class="font-display text-white text-xl mb-2">WORLD OF INCENTRO</h3>
+            <p class="text-text-muted text-xs leading-relaxed">In opdracht van Eventbureau.nl leverden wij de totaal techniek. Locatie: Onderzeebootloods Rotterdam. Gasten in ronde opstelling.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Eventbureau.nl</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- THEATERPRODUCTIES + MEER -->
+    <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8 reveal">
+        <span class="neon-dot" style="background:#8B5CF6;box-shadow:0 0 10px #8B5CF6;"></span>
+        <h2 class="font-display text-purple text-2xl tracking-wide">OVERIGE PRODUCTIES</h2>
+        <div class="flex-1 h-px bg-purple bg-opacity-20"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="ref-card reveal" onclick="openLightbox('images/theater-1.jpg')">
+          <img src="images/theater-1.jpg" alt="Theaterproductie" loading="lazy" />
+          <div class="p-5">
+            <div class="text-purple text-xs font-semibold tracking-wide mb-1">THEATERPRODUCTIE</div>
+            <h3 class="font-display text-white text-xl mb-2">THEATER & SHOWS</h3>
+            <p class="text-text-muted text-xs leading-relaxed">HVR verzorgt licht, geluid en video voor eenmalige voorstellingen én tournees langs diverse theaters. Op maat, in overleg met regisseur of choreograaf.</p>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.1s" onclick="openLightbox('images/ref-5.jpg')">
+          <img src="images/ref-5.jpg" alt="Lely Christmas Experience" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">DRIVE THROUGH EVENT</div>
+            <h3 class="font-display text-white text-xl mb-2">LELY CHRISTMAS EXPERIENCE</h3>
+            <p class="text-text-muted text-xs leading-relaxed">In opdracht van D&B Eventmarketing mochten wij de techniek leveren voor de Lely Christmas Experience, een drive through op maat voor de medewerkers.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">D&B Eventmarketing</span>
+          </div>
+        </div>
+
+        <div class="ref-card reveal" style="transition-delay:0.2s" onclick="openLightbox('images/ref-6.jpg')">
+          <img src="images/ref-6.jpg" alt="Ferrari Club" loading="lazy" />
+          <div class="p-5">
+            <div class="text-gold text-xs font-semibold tracking-wide mb-1">JUBILEUM EVENT</div>
+            <h3 class="font-display text-white text-xl mb-2">FERRARI CLUB JUBILEUM</h3>
+            <p class="text-text-muted text-xs leading-relaxed">Jubileum event voor Ferrari Club Nederland — HVR verzorgde de volledige technische uitvoering van dit prestigieuze evenement.</p>
+            <span class="mt-3 inline-block text-xs text-text-muted border border-white border-opacity-10 px-2 py-0.5">Ferrari Club Nederland</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="reveal text-center py-12 border border-white border-opacity-5 bg-surface rounded">
+      <div class="flex items-center justify-center gap-3 mb-4"><span class="neon-dot"></span><span class="text-gold text-xs font-semibold tracking-widest uppercase">Volgende project?</span></div>
+      <h2 class="font-display text-white mb-4" style="font-size:clamp(2rem,4vw,3rem);">MAAK UW EVENT ONVERGETELIJK</h2>
+      <p class="text-text-muted mb-8 max-w-lg mx-auto text-sm leading-relaxed">Benieuwd wat HVR voor uw evenement kan betekenen? Neem contact op voor een vrijblijvend gesprek.</p>
+      <a href="contact.html" class="btn-gold text-sm tracking-wider uppercase">Contact Opnemen</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-surface border-t border-white border-opacity-5 py-12 px-4 md:px-8 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="gradient-line mb-8"></div>
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-text-muted text-xs">
+      <span>© 2025 HVR Show Equipment B.V. · KVK: 16060198 · De Hammen 2, 5371 MK Ravenstein</span>
+      <span>Gebouwd door <a href="https://www.code-lieshout.nl" class="text-gold hover:text-gold-light transition-colors duration-200 cursor-pointer">Code Lieshout</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
+  function toggleMenu() {
+    document.getElementById('mobile-menu').classList.toggle('open');
+    document.getElementById('icon-open').classList.toggle('hidden');
+    document.getElementById('icon-close').classList.toggle('hidden');
+  }
+  const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  function openLightbox(src) { document.getElementById('lb-img').src = src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>
